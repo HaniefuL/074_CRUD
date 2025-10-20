@@ -29,16 +29,15 @@ db.connect((err) => {
     console.log('Connected to successfully');
 });
 
-// dibuat Method GET dan POST
-
-//GET
 
 app.get('/API/users', (req, res) => {
-  let sql = 'SELECT * FROM mahasiswa', (err, results) => {
-    if (err) throw err;
-  }        
-    db.query(sql, (err, results) => {
-        if (err) throw err;
-        res.json(results);
-    });
+  db.query('SELECT * FROM mahasiswa', (err, results) => {
+    if (err) {
+        console.error('Error executing query:0' + err.stack);
+        res.status(500).send('Error fetching users');
+        return;
+    }
+    res.json(results);
+  });
 });
+
